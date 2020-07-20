@@ -1,0 +1,305 @@
+<template id="user-profile-template">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" crossorigin="anonymous" />
+	<style>
+		/*user profile box*/
+		.user-profile-box {
+			width: 100%;
+			position: relative;
+			padding: 0 5px;
+			transition: 0.4s;
+		}
+
+		.user-profile-box::after {
+			content: "";
+			clear: both;
+			display: table;
+		}
+
+		.user-profile-box:hover {
+			background: #00000020;
+			cursor: pointer;
+			border-radius: 4px;
+		}
+
+		.user-profile-box>div {
+			float: left;
+		}
+
+		.user-reduced-name {
+			line-height: 4rem;
+		}
+
+		.reduced-img-container {
+			min-width: 4rem;
+			min-height: 4rem;
+			margin-left: 1rem;
+			border-radius: 50%;
+			box-shadow: 0 0.2rem 0.6rem #999;
+		}
+
+		.night .reduced-img-container {
+			background-color: #333;
+			box-shadow: none;
+		}
+
+		.reduced-img-photo {
+			background: #EEE;
+			display: block;
+			min-width: 4rem;
+			min-height: 4rem;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.night .reduced-img-photo {
+			background-color: #666;
+			box-shadow: none;
+		}
+
+		/*user profile sidenav*/
+		.sidenav {
+			height: 0;
+			width: 30vw;
+			position: fixed;
+			z-index: 1;
+			top: 15px;
+			right: 15px;
+			overflow-y: auto;
+			overflow-x: hidden;
+			background-color: #fff;
+			transition: 0.5s;
+			border-radius: 4px;
+		}
+
+		.night .sidenav {
+			background-color: #444;
+			color: #EFEFEF;
+		}
+
+		.sidenav-open {
+			height: calc(100% - 3rem);
+			padding: 10px 0 !important;
+			box-shadow: 0 2px 6px #AAA, 0 10px 20px #DFDFDF;
+		}
+
+		.night .sidenav-open {
+			box-shadow: none;
+		}
+
+		.sidenav .btn-close {
+			color: #666;
+			text-decoration: none;
+			position: absolute;
+			z-index: 2;
+			margin-top: -15px;
+			right: 5px;
+			font-size: 3rem;
+			transition: 0.4s;
+		}
+
+		.night .sidenav .btn-close {
+			color: #CCC;
+		}
+
+		.sidenav .btn-close:hover {
+			opacity: 0.5;
+			transition: 0.4s;
+		}
+
+		.night .sidenav .btn-close:hover {
+			opacity: 1;
+			color: #AAA;
+		}
+
+		.sidenav h4 {
+			font-size: 1.2rem;
+		}
+
+		.img-container {
+			margin: auto;
+			width: 8vw;
+			min-width: 100px;
+			height: 8vw;
+			min-height: 100px;
+			overflow: hidden;
+			border-radius: 50%;
+			border: 0.2rem solid #FFF;
+			box-shadow: 0 0.2rem 0.6rem #999;
+		}
+
+		.night .img-container {
+			border: 0.2rem solid #666;
+			box-shadow: none;
+		}
+
+		.img-photo {
+			background: #EEE;
+			display: block;
+			width: 100%;
+			min-width: 60px;
+			height: auto;
+			min-height: 100%;
+			object-fit: cover;
+			border-radius: 50%;
+		}
+
+		.night .img-photo {
+			background: #000;
+		}
+
+		@media (max-width: 600px) {
+			.sidenav {
+				width: 90vw;
+				left: 0%;
+				right: 0%;
+				margin: 0 auto;
+			}
+		}
+
+		/*general*/
+		hr {
+			display: block;
+			height: 1px;
+			border: 0;
+			border-top: 1px solid #e0e0e0;
+			margin: 1rem 0;
+			padding: 0;
+		}
+
+		.night hr {
+			border-top: 1px solid #555;
+		}
+
+		.row {
+			display: block;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+
+		.col-md-12 {
+			padding: 0 15px;
+		}
+
+		.text-center {
+			text-align: center;
+		}
+	</style>
+
+	<div id="user-profile">
+		<div id="user-profile-box" class="user-profile-box" onclick="this.toggleNav()">
+			<div class="user-reduced-name">
+				<span id="user-reduced-name"></span>
+			</div>
+			<div class="reduced-img-container">
+				<img src="" alt="photo" id="reduced-img-photo" class="reduced-img-photo" width="60" height="60" />
+			</div>
+		</div>
+		<div id="user-profile-sidenav" class="sidenav">
+			<a href="javascript:void(0)" id="button-close" class="btn-close" onclick="this.toggleNav()">&times;</a>
+			<div class="row">
+				<div class="col-md-12">
+					<h4 class="text-center">Bem vindo,
+						<br />
+						<span id="user-name"></span>
+					</h4>
+				</div>
+				<div class="col-md-12">
+					<div class="img-container">
+						<img src="" alt="photo" id="img-photo" class="img-photo" width="300" height="200" />
+					</div>
+				</div>
+				<div class="row">
+					<hr />
+				</div>
+				<div class="row">
+					<div class="col-md-12 profile-info text-center">
+						<p>
+							<span class="fas fa-envelope"></span>
+							<span id="user-email"></span>
+						</p>
+						<p>
+							<span class="fas fa-users"></span>
+							<span id="user-area"></span>
+						</p>
+						<p>
+							<span class="fas fa-phone"></span>
+							<span id="user-tel"></span>
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</template>
+
+<script>
+	class UserProfile extends HTMLElement {
+		constructor() {
+			super()
+
+			this._shadowRoot = this.attachShadow({
+				mode: 'open'
+			})
+			this._shadowRoot.appendChild(template.content.cloneNode(true))
+
+			this.userProfileBox = this.shadowRoot.getElementById('user-profile-box')
+			this.buttonClose = this.shadowRoot.getElementById('button-close')
+			this.toggleNav = this.toggleNav.bind(this)
+		}
+
+		static get is() {
+			return 'user-profile';
+		}
+
+		connectedCallback() {
+			let data = {};
+			try {
+				data = {
+					name: "Fulano Siclano Beltrano",
+					area: "CORPS",
+					email: "fulano@siclano.com",
+					tel: "0987",
+					photoUrl: "https://picsum.photos/id/1074/5472/3648"
+				}
+			} catch (ex) {
+				console.error(ex)
+			}
+			this.shadowRoot.getElementById('user-name').textContent = data.name
+			this.shadowRoot.getElementById('user-reduced-name').textContent = this.getReducedName(data.name)
+			this.shadowRoot.getElementById('user-area').textContent = data.area
+			this.shadowRoot.getElementById('user-email').textContent = data.email
+			this.shadowRoot.getElementById('user-tel').textContent = data.tel
+			this.shadowRoot.getElementById('img-photo').src = data.photoUrl
+			this.shadowRoot.getElementById('reduced-img-photo').src = data.photoUrl
+
+			this.userProfileBox.addEventListener('click', this.toggleNav)
+			this.buttonClose.addEventListener('click', this.toggleNav)
+		}
+
+		disconnectedCallback() {
+			this.userProfileBox.removeEventListener('click', this.toggleNav)
+			this.buttonClose.removeEventListener('click', this.toggleNav)
+		}
+
+		toggleNav() {
+			let sidenav = this.shadowRoot.getElementById("user-profile-sidenav")
+			if (sidenav.classList.contains("sidenav-open")) {
+				sidenav.classList.remove("sidenav-open")
+			} else {
+				sidenav.classList.add("sidenav-open")
+			}
+		}
+
+		getReducedName(fullname) {
+			let nameSplited = fullname.split(' ')
+			return `${nameSplited[0]}  ${nameSplited[nameSplited.length - 1]}`
+		}
+
+	}
+
+	const template = document.getElementById('user-profile-template')
+
+	customElements.define(UserProfile.is, UserProfile);
+</script>

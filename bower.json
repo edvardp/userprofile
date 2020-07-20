@@ -1,0 +1,28 @@
+{
+  "name": "user-profile",
+  "version": "0.0.0",
+  "authors": [
+    "Edvard Pereira"
+  ],
+  "description": "Componente para criação de perfil de usuário com sidenav",
+  "keywords": [
+    "web-components",
+    "custom-element",
+    "user-profile"
+  ],
+  "main": "user-profile.html",
+  "license": "MIT",
+  "homepage": "https://github.com/https://github.com/edvardp/userprofile.git/user-profile/",
+  "demos": {
+    "Demo": "demo/index.html"
+  },
+  "ignore": [
+    "*",
+    "!*.html",
+    "!LICENSE"
+  ],
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "^6.0.0"
+  }
+}

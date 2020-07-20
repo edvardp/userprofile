@@ -1,0 +1,30 @@
+{
+  "name": "user-profile",
+  "version": "0.0.0",
+  "description": "Componente para criação de perfil de usuário com sidenav",
+  "main": "user-profile.html",
+  "scripts": {
+    "test": "wct",
+    "posttest": "eslint .",
+    "demo": "browser-sync start -c bs-config.js"
+  },
+  "author": "Edvard Pereira",
+  "license": "MIT",
+  "keywords": [
+    "web-components",
+    "custom-element",
+    "user-profile"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/https://github.com/edvardp/userprofile.git/user-profile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/https://github.com/edvardp/userprofile.git/user-profile/issues"
+  },
+  "devDependencies": {
+    "browser-sync": "^2.9.0",
+    "eslint": "^3.14.1",
+    "web-component-tester": "^6.0.0"
+  }
+}
