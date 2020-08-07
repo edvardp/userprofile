@@ -3,6 +3,9 @@
 	<style>
 		/*user profile box*/
 		.user-profile-box {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			width: 100%;
 			position: relative;
 			padding: 0 5px;
@@ -30,11 +33,11 @@
 		}
 
 		.reduced-img-container {
-			min-width: 4rem;
-			min-height: 4rem;
+			min-width: 3rem;
+			min-height: 3rem;
 			margin-left: 1rem;
 			border-radius: 50%;
-			box-shadow: 0 0.2rem 0.6rem #999;
+			box-shadow: 0 0.2rem 0.6rem #00000066;
 		}
 
 		.night .reduced-img-container {
@@ -45,8 +48,8 @@
 		.reduced-img-photo {
 			background: #EEE;
 			display: block;
-			min-width: 4rem;
-			min-height: 4rem;
+			min-width: 3rem;
+			min-height: 3rem;
 			object-fit: cover;
 			border-radius: 50%;
 		}
@@ -77,9 +80,9 @@
 		}
 
 		.sidenav-open {
-			height: calc(100% - 3rem);
+			height: 90%;
 			padding: 10px 0 !important;
-			box-shadow: 0 2px 6px #AAA, 0 10px 20px #DFDFDF;
+			box-shadow: 0 2px 6px #00000066, 0 10px 20px #00000066;
 		}
 
 		.night .sidenav-open {
@@ -112,7 +115,7 @@
 		}
 
 		.sidenav h4 {
-			font-size: 1.2rem;
+			font-size: 1.6rem;
 		}
 
 		.img-container {
@@ -124,7 +127,7 @@
 			overflow: hidden;
 			border-radius: 50%;
 			border: 0.2rem solid #FFF;
-			box-shadow: 0 0.2rem 0.6rem #999;
+			box-shadow: 0 0.2rem 0.6rem #00000066;
 		}
 
 		.night .img-container {
@@ -156,6 +159,30 @@
 			}
 		}
 
+        .notifications {
+            margin: 0.5rem 0;
+        }
+
+        .online-check {
+            padding: 0.3rem;
+            background-color: #00e205;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 8px;
+            margin-left: 38px;
+            border: 0.1rem solid #FFF;
+        }
+
+        .notification-check {
+            padding: 0.3rem;
+            background-color: #00e205;
+            border-radius: 50%;
+            position: absolute;
+            top: 8px;
+            margin-left: 38px;
+            border: 0.1rem solid #FFF;
+        }
+
 		/*general*/
 		hr {
 			display: block;
@@ -184,6 +211,29 @@
 		.text-center {
 			text-align: center;
 		}
+
+        .badge {
+            display: inline-block;
+            padding: .25em .4em;
+            font-size: 75%;
+            font-weight: 700;
+            line-height: 1;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: baseline;
+            border-radius: .25rem;
+        }
+
+        .badge-pill {
+            padding-right: .6em;
+            padding-left: .6em;
+            border-radius: 10rem;
+        }
+
+        .badge-success {
+            color: #fff;
+            background-color: #28a745;
+        }
 	</style>
 
 	<div id="user-profile">
@@ -191,9 +241,11 @@
 			<div class="user-reduced-name">
 				<span id="user-reduced-name"></span>
 			</div>
-			<div class="reduced-img-container">
-				<img src="" alt="photo" id="reduced-img-photo" class="reduced-img-photo" width="60" height="60" />
-			</div>
+			<div id="reduced-img-container" class="reduced-img-container">
+				<img src="" alt="photo" id="reduced-img-photo" class="reduced-img-photo" width="30" height="30" />
+                <!-- <span id="online-check" class="online-check"></span> -->
+                <span id="notification-check" class="notification-check" style="display: none;"></span>
+            </div>
 		</div>
 		<div id="user-profile-sidenav" class="sidenav">
 			<a href="javascript:void(0)" id="button-close" class="btn-close" onclick="this.toggleNav()">&times;</a>
@@ -208,7 +260,14 @@
 					<div class="img-container">
 						<img src="" alt="photo" id="img-photo" class="img-photo" width="300" height="200" />
 					</div>
-				</div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="notifications text-center">
+                            <span id="notification-count" class="badge badge-pill badge-success" style="display: none;">5 notificações</span>
+                        </div>
+                    </div>
+                </div>
 				<div class="row">
 					<hr />
 				</div>
@@ -246,11 +305,14 @@
 
 			this.userProfileBox = this.shadowRoot.getElementById('user-profile-box')
 			this.buttonClose = this.shadowRoot.getElementById('button-close')
+			this.userProfileSidenav = this.shadowRoot.getElementById('user-profile-sidenav')
 			this.toggleNav = this.toggleNav.bind(this)
+			this.addClickOutsideNav = this.addClickOutsideNav.bind(this)
+			this.removeClickOutsideNav = this.removeClickOutsideNav.bind(this)
 		}
 
 		static get is() {
-			return 'user-profile';
+			return 'user-profile'
 		}
 
 		connectedCallback() {
@@ -261,35 +323,61 @@
 					area: "CORPS",
 					email: "fulano@siclano.com",
 					tel: "0987",
-					photoUrl: "https://picsum.photos/id/1074/5472/3648"
+                    photoUrl: "https://picsum.photos/id/1074/5472/3648",
+                    notifications: [1,2,3,4,5]
 				}
 			} catch (ex) {
 				console.error(ex)
 			}
 			this.shadowRoot.getElementById('user-name').textContent = data.name
-			this.shadowRoot.getElementById('user-reduced-name').textContent = this.getReducedName(data.name)
+            this.shadowRoot.getElementById('user-reduced-name').textContent = this.getReducedName(data.name)
+            if (this.getAttribute('color')) {
+                this.shadowRoot.getElementById('user-reduced-name').style.color = this.getAttribute('color')
+            }
 			this.shadowRoot.getElementById('user-area').textContent = data.area
 			this.shadowRoot.getElementById('user-email').textContent = data.email
 			this.shadowRoot.getElementById('user-tel').textContent = data.tel
 			this.shadowRoot.getElementById('img-photo').src = data.photoUrl
-			this.shadowRoot.getElementById('reduced-img-photo').src = data.photoUrl
+            this.shadowRoot.getElementById('reduced-img-photo').src = data.photoUrl
+            if (data.notifications != null) {
+                var textNotification = data.notifications.length == 1 ? '1 notificação' : `${data.notifications.length} notificações` 
+                this.shadowRoot.getElementById('reduced-img-container').title = textNotification
+                this.shadowRoot.getElementById('notification-check').style.display = 'block'
+                this.shadowRoot.getElementById('notification-count').style.display = 'inline'
+                this.shadowRoot.getElementById('notification-count').textContent = textNotification
+
+            }
 
 			this.userProfileBox.addEventListener('click', this.toggleNav)
 			this.buttonClose.addEventListener('click', this.toggleNav)
 		}
 
 		disconnectedCallback() {
-			this.userProfileBox.removeEventListener('click', this.toggleNav)
-			this.buttonClose.removeEventListener('click', this.toggleNav)
+			this.userProfileBox.removeEventListener('click')
+			this.buttonClose.removeEventListener('click')
 		}
 
 		toggleNav() {
-			let sidenav = this.shadowRoot.getElementById("user-profile-sidenav")
-			if (sidenav.classList.contains("sidenav-open")) {
-				sidenav.classList.remove("sidenav-open")
+			if (this.userProfileSidenav.classList.contains("sidenav-open")) {
+				this.userProfileSidenav.classList.remove("sidenav-open")
+				this.removeClickOutsideNav()
 			} else {
-				sidenav.classList.add("sidenav-open")
+				this.userProfileSidenav.classList.add("sidenav-open")
+				this.addClickOutsideNav()
 			}
+		}
+
+		addClickOutsideNav(){
+			window.addEventListener('click', function (e) {
+				// if (this. 
+				// .contains(e.target)) {
+				// 	this.userProfileSidenav.classList.remove("sidenav-open")
+				// } 
+			});
+		}
+
+		removeClickOutsideNav() {
+			window.removeEventListener('click');
 		}
 
 		getReducedName(fullname) {
@@ -301,5 +389,5 @@
 
 	const template = document.getElementById('user-profile-template')
 
-	customElements.define(UserProfile.is, UserProfile);
+	customElements.define(UserProfile.is, UserProfile)
 </script>
