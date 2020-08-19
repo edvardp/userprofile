@@ -1,163 +1,163 @@
 <template id="user-profile-template">
-	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" crossorigin="anonymous" />
-	<style>
-		/*user profile box*/
-		.user-profile-box {
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 100%;
-			position: relative;
-			padding: 0 5px;
-			transition: 0.4s;
-		}
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" crossorigin="anonymous" />
+    <style>
+        /*user profile box*/
+        .user-profile-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            padding: 0 5px;
+            transition: 0.4s;
+        }
 
-		.user-profile-box::after {
-			content: "";
-			clear: both;
-			display: table;
-		}
+        .user-profile-box::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
 
-		.user-profile-box:hover {
-			background: #00000020;
-			cursor: pointer;
-			border-radius: 4px;
-		}
+        .user-profile-box:hover {
+            background: #00000020;
+            cursor: pointer;
+            border-radius: 4px;
+        }
 
-		.user-profile-box>div {
-			float: left;
-		}
+        .user-profile-box>div {
+            float: left;
+        }
 
-		.user-reduced-name {
-			line-height: 4rem;
-		}
+        .user-reduced-name {
+            line-height: 4rem;
+        }
 
-		.reduced-img-container {
-			min-width: 3rem;
-			min-height: 3rem;
-			margin-left: 1rem;
-			border-radius: 50%;
-			box-shadow: 0 0.2rem 0.6rem #00000066;
-		}
+        .reduced-img-container {
+            min-width: 3rem;
+            min-height: 3rem;
+            margin-left: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 0.2rem 0.6rem #00000066;
+        }
 
-		.night .reduced-img-container {
-			background-color: #333;
-			box-shadow: none;
-		}
+        .night .reduced-img-container {
+            background-color: #333;
+            box-shadow: none;
+        }
 
-		.reduced-img-photo {
-			background: #EEE;
-			display: block;
-			min-width: 3rem;
-			min-height: 3rem;
-			object-fit: cover;
-			border-radius: 50%;
-		}
+        .reduced-img-photo {
+            background: #EEE;
+            display: block;
+            min-width: 3rem;
+            min-height: 3rem;
+            object-fit: cover;
+            border-radius: 50%;
+        }
 
-		.night .reduced-img-photo {
-			background-color: #666;
-			box-shadow: none;
-		}
+        .night .reduced-img-photo {
+            background-color: #666;
+            box-shadow: none;
+        }
 
-		/*user profile sidenav*/
-		.sidenav {
-			height: 0;
-			width: 30vw;
-			position: fixed;
-			z-index: 1;
-			top: 15px;
-			right: 15px;
-			overflow-y: auto;
-			overflow-x: hidden;
-			background-color: #fff;
-			transition: 0.5s;
-			border-radius: 4px;
-		}
+        /*user profile sidenav*/
+        .sidenav {
+            height: 0;
+            width: 30vw;
+            position: fixed;
+            z-index: 1;
+            top: 15px;
+            right: 15px;
+            overflow-y: auto;
+            overflow-x: hidden;
+            background-color: #fff;
+            transition: 0.5s;
+            border-radius: 4px;
+        }
 
-		.night .sidenav {
-			background-color: #444;
-			color: #EFEFEF;
-		}
+        .night .sidenav {
+            background-color: #444;
+            color: #EFEFEF;
+        }
 
-		.sidenav-open {
-			height: 90%;
-			padding: 10px 0 !important;
-			box-shadow: 0 2px 6px #00000066, 0 10px 20px #00000066;
-		}
+        .sidenav-open {
+            height: 90%;
+            padding: 10px 0 !important;
+            box-shadow: 0 2px 6px #00000066, 0 10px 20px #00000066;
+        }
 
-		.night .sidenav-open {
-			box-shadow: none;
-		}
+        .night .sidenav-open {
+            box-shadow: none;
+        }
 
-		.sidenav .btn-close {
-			color: #666;
-			text-decoration: none;
-			position: absolute;
-			z-index: 2;
-			margin-top: -15px;
-			right: 5px;
-			font-size: 3rem;
-			transition: 0.4s;
-		}
+        .sidenav .btn-close {
+            color: #666;
+            text-decoration: none;
+            position: absolute;
+            z-index: 2;
+            margin-top: -15px;
+            right: 5px;
+            font-size: 3rem;
+            transition: 0.4s;
+        }
 
-		.night .sidenav .btn-close {
-			color: #CCC;
-		}
+        .night .sidenav .btn-close {
+            color: #CCC;
+        }
 
-		.sidenav .btn-close:hover {
-			opacity: 0.5;
-			transition: 0.4s;
-		}
+        .sidenav .btn-close:hover {
+            opacity: 0.5;
+            transition: 0.4s;
+        }
 
-		.night .sidenav .btn-close:hover {
-			opacity: 1;
-			color: #AAA;
-		}
+        .night .sidenav .btn-close:hover {
+            opacity: 1;
+            color: #AAA;
+        }
 
-		.sidenav h4 {
-			font-size: 1.6rem;
-		}
+        .sidenav h4 {
+            font-size: 1.6rem;
+        }
 
-		.img-container {
-			margin: auto;
-			width: 8vw;
-			min-width: 100px;
-			height: 8vw;
-			min-height: 100px;
-			overflow: hidden;
-			border-radius: 50%;
-			border: 0.2rem solid #FFF;
-			box-shadow: 0 0.2rem 0.6rem #00000066;
-		}
+        .img-container {
+            margin: auto;
+            width: 8vw;
+            min-width: 100px;
+            height: 8vw;
+            min-height: 100px;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 0.2rem solid #FFF;
+            box-shadow: 0 0.2rem 0.6rem #00000066;
+        }
 
-		.night .img-container {
-			border: 0.2rem solid #666;
-			box-shadow: none;
-		}
+        .night .img-container {
+            border: 0.2rem solid #666;
+            box-shadow: none;
+        }
 
-		.img-photo {
-			background: #EEE;
-			display: block;
-			width: 100%;
-			min-width: 60px;
-			height: auto;
-			min-height: 100%;
-			object-fit: cover;
-			border-radius: 50%;
-		}
+        .img-photo {
+            background: #EEE;
+            display: block;
+            width: 100%;
+            min-width: 60px;
+            height: auto;
+            min-height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
 
-		.night .img-photo {
-			background: #000;
-		}
+        .night .img-photo {
+            background: #000;
+        }
 
-		@media (max-width: 600px) {
-			.sidenav {
-				width: 90vw;
-				left: 0%;
-				right: 0%;
-				margin: 0 auto;
-			}
-		}
+        @media (max-width: 600px) {
+            .sidenav {
+                width: 90vw;
+                left: 0%;
+                right: 0%;
+                margin: 0 auto;
+            }
+        }
 
         .notifications {
             margin: 0.5rem 0;
@@ -179,38 +179,38 @@
             border-radius: 50%;
             position: absolute;
             top: 8px;
-            margin-left: 38px;
+            margin-left: 2.4rem;
             border: 0.1rem solid #FFF;
         }
 
-		/*general*/
-		hr {
-			display: block;
-			height: 1px;
-			border: 0;
-			border-top: 1px solid #e0e0e0;
-			margin: 1rem 0;
-			padding: 0;
-		}
+        /*general*/
+        hr {
+            display: block;
+            height: 1px;
+            border: 0;
+            border-top: 1px solid #e0e0e0;
+            margin: 1rem 0;
+            padding: 0;
+        }
 
-		.night hr {
-			border-top: 1px solid #555;
-		}
+        .night hr {
+            border-top: 1px solid #555;
+        }
 
-		.row {
-			display: block;
-			width: 100%;
-			margin: 0;
-			padding: 0;
-		}
+        .row {
+            display: block;
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
 
-		.col-md-12 {
-			padding: 0 15px;
-		}
+        .col-md-12 {
+            padding: 0 15px;
+        }
 
-		.text-center {
-			text-align: center;
-		}
+        .text-center {
+            text-align: center;
+        }
 
         .badge {
             display: inline-block;
@@ -234,160 +234,186 @@
             color: #fff;
             background-color: #28a745;
         }
-	</style>
+    </style>
 
-	<div id="user-profile">
-		<div id="user-profile-box" class="user-profile-box" onclick="this.toggleNav()">
-			<div class="user-reduced-name">
-				<span id="user-reduced-name"></span>
-			</div>
-			<div id="reduced-img-container" class="reduced-img-container">
-				<img src="" alt="photo" id="reduced-img-photo" class="reduced-img-photo" width="30" height="30" />
+    <div id="user-profile">
+        <div id="user-profile-box" class="user-profile-box" onclick="this.toggleNav()">
+            <div class="user-reduced-name">
+                <span id="user-reduced-name"></span>
+            </div>
+            <div id="reduced-img-container" class="reduced-img-container">
+                <img src="" alt="photo" id="reduced-img-photo" class="reduced-img-photo" width="30" height="30" />
                 <!-- <span id="online-check" class="online-check"></span> -->
                 <span id="notification-check" class="notification-check" style="display: none;"></span>
             </div>
-		</div>
-		<div id="user-profile-sidenav" class="sidenav">
-			<a href="javascript:void(0)" id="button-close" class="btn-close" onclick="this.toggleNav()">&times;</a>
-			<div class="row">
-				<div class="col-md-12">
-					<h4 class="text-center">Bem vindo,
-						<br />
-						<span id="user-name"></span>
-					</h4>
-				</div>
-				<div class="col-md-12">
-					<div class="img-container">
-						<img src="" alt="photo" id="img-photo" class="img-photo" width="300" height="200" />
-					</div>
+        </div>
+        <div id="user-profile-sidenav" class="sidenav">
+            <a href="javascript:void(0)" id="button-close" class="btn-close" onclick="this.toggleNav()">&times;</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="text-center">Bem vindo,
+                        <br />
+                        <span id="user-name"></span>
+                    </h4>
+                </div>
+                <div class="col-md-12">
+                    <div class="img-container">
+                        <img src="" alt="photo" id="img-photo" class="img-photo" width="300" height="200" />
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-12">
                         <div class="notifications text-center">
-                            <span id="notification-count" class="badge badge-pill badge-success" style="display: none;">5 notificações</span>
+                            <span id="notification-count" class="badge badge-pill badge-success"
+                                style="display: none;">5 notificações</span>
                         </div>
                     </div>
                 </div>
-				<div class="row">
-					<hr />
-				</div>
-				<div class="row">
-					<div class="col-md-12 profile-info text-center">
-						<p>
-							<span class="fas fa-envelope"></span>
-							<span id="user-email"></span>
-						</p>
-						<p>
-							<span class="fas fa-users"></span>
-							<span id="user-area"></span>
-						</p>
-						<p>
-							<span class="fas fa-phone"></span>
-							<span id="user-tel"></span>
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                <div class="row">
+                    <hr />
+                </div>
+                <div class="row">
+                    <div class="col-md-12 profile-info text-center">
+                        <p>
+                            <span class="fas fa-envelope"></span>
+                            <span id="user-email"></span>
+                        </p>
+                        <p>
+                            <span class="fas fa-users"></span>
+                            <span id="user-area"></span>
+                        </p>
+                        <p>
+                            <span class="fas fa-phone"></span>
+                            <span id="user-tel"></span>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </template>
 
 <script>
-	class UserProfile extends HTMLElement {
-		constructor() {
-			super()
+    class UserProfile extends HTMLElement {
+        constructor() {
+            super()
 
-			this._shadowRoot = this.attachShadow({
-				mode: 'open'
-			})
-			this._shadowRoot.appendChild(template.content.cloneNode(true))
+            this._shadowRoot = this.attachShadow({
+                mode: 'open'
+            })
+            this._shadowRoot.appendChild(template.content.cloneNode(true))
 
-			this.userProfileBox = this.shadowRoot.getElementById('user-profile-box')
-			this.buttonClose = this.shadowRoot.getElementById('button-close')
-			this.userProfileSidenav = this.shadowRoot.getElementById('user-profile-sidenav')
-			this.toggleNav = this.toggleNav.bind(this)
-			this.addClickOutsideNav = this.addClickOutsideNav.bind(this)
-			this.removeClickOutsideNav = this.removeClickOutsideNav.bind(this)
-		}
+            this.userProfileBox = this.shadowRoot.getElementById('user-profile-box')
+            this.buttonClose = this.shadowRoot.getElementById('button-close')
+            this.userProfileSidenav = this.shadowRoot.getElementById('user-profile-sidenav')
 
-		static get is() {
-			return 'user-profile'
-		}
+            this.getData = this.getData.bind(this);
+            this.setNotifications = this.setNotifications.bind(this)
+            this.toggleNav = this.toggleNav.bind(this)
+            this.addClickOutsideNav = this.addClickOutsideNav.bind(this)
+            this.removeClickOutsideNav = this.removeClickOutsideNav.bind(this)
+        }
 
-		connectedCallback() {
-			let data = {};
-			try {
-				data = {
-					name: "Fulano Siclano Beltrano",
-					area: "CORPS",
-					email: "fulano@siclano.com",
-					tel: "0987",
-                    photoUrl: "https://picsum.photos/id/1074/5472/3648",
-                    notifications: [1,2,3,4,5]
-				}
-			} catch (ex) {
-				console.error(ex)
-			}
-			this.shadowRoot.getElementById('user-name').textContent = data.name
-            this.shadowRoot.getElementById('user-reduced-name').textContent = this.getReducedName(data.name)
+        static get is() {
+            return 'user-profile'
+        }
+
+        async connectedCallback() {
+            let action = this.getAttribute('action')
+            let params = this.getAttribute('params')
+            let data = {}
+            await this.getData(action, params)
+                .then(function (json) {
+                    data = json;
+
+                    //test
+                    if (data == {}) {
+                        data = {
+                            nome: "Fulano Siclano Beltrano",
+                            area: "CORPS",
+                            email: "fulano@siclano.com",
+                            tel: "0987",
+                            photoUrl: "https://picsum.photos/id/1074/5472/3648",
+                            notifications: [1]
+                        }
+                    }
+                })
+
+            this.shadowRoot.getElementById('user-name').textContent = data.nome
+            this.shadowRoot.getElementById('user-reduced-name').textContent = this.getReducedName(data.nome)
             if (this.getAttribute('color')) {
                 this.shadowRoot.getElementById('user-reduced-name').style.color = this.getAttribute('color')
             }
-			this.shadowRoot.getElementById('user-area').textContent = data.area
-			this.shadowRoot.getElementById('user-email').textContent = data.email
-			this.shadowRoot.getElementById('user-tel').textContent = data.tel
-			this.shadowRoot.getElementById('img-photo').src = data.photoUrl
+            this.shadowRoot.getElementById('user-area').textContent = data.area
+            this.shadowRoot.getElementById('user-email').textContent = data.email
+            this.shadowRoot.getElementById('user-tel').textContent = data.tel
+            this.shadowRoot.getElementById('img-photo').src = data.photoUrl
             this.shadowRoot.getElementById('reduced-img-photo').src = data.photoUrl
+
+            this.setNotifications(data)
+
+            this.userProfileBox.addEventListener('click', this.toggleNav)
+            this.buttonClose.addEventListener('click', this.toggleNav)
+        }
+
+        disconnectedCallback() {
+            this.userProfileBox.removeEventListener('click')
+            this.buttonClose.removeEventListener('click')
+        }
+
+        getData(action, params) {
+            return fetch(action, {
+                //method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: params ? JSON.stringify(params) : undefined
+            })
+                .then(resp => resp.json())
+        }
+
+        toggleNav() {
+            if (this.userProfileSidenav.classList.contains("sidenav-open")) {
+                this.userProfileSidenav.classList.remove("sidenav-open")
+                //this.removeClickOutsideNav()
+            } else {
+                this.userProfileSidenav.classList.add("sidenav-open")
+                //this.addClickOutsideNav()
+            }
+        }
+
+        addClickOutsideNav() {
+            // window.addEventListener('click', function (e) {
+            //     if (this. 
+            //     .contains(e.target)) {
+            //     	this.userProfileSidenav.classList.remove("sidenav-open")
+            //     } 
+            // });
+        }
+
+        removeClickOutsideNav() {
+            window.removeEventListener('click');
+        }
+
+        getReducedName(fullname) {
+            let nameSplited = fullname.split(' ')
+            return `${nameSplited[0]}  ${nameSplited[nameSplited.length - 1]}`
+        }
+
+        setNotifications(data) {
             if (data.notifications != null) {
-                var textNotification = data.notifications.length == 1 ? '1 notificação' : `${data.notifications.length} notificações` 
-                this.shadowRoot.getElementById('reduced-img-container').title = textNotification
+                var textNotification = data.notifications.length == 1 ? '1 notificação' : `${data.notifications.length} notificações`
+                this.title = `Você possui ${textNotification}`
                 this.shadowRoot.getElementById('notification-check').style.display = 'block'
                 this.shadowRoot.getElementById('notification-count').style.display = 'inline'
                 this.shadowRoot.getElementById('notification-count').textContent = textNotification
-
             }
+        }
+    }
 
-			this.userProfileBox.addEventListener('click', this.toggleNav)
-			this.buttonClose.addEventListener('click', this.toggleNav)
-		}
+    const template = document.getElementById('user-profile-template')
 
-		disconnectedCallback() {
-			this.userProfileBox.removeEventListener('click')
-			this.buttonClose.removeEventListener('click')
-		}
-
-		toggleNav() {
-			if (this.userProfileSidenav.classList.contains("sidenav-open")) {
-				this.userProfileSidenav.classList.remove("sidenav-open")
-				this.removeClickOutsideNav()
-			} else {
-				this.userProfileSidenav.classList.add("sidenav-open")
-				this.addClickOutsideNav()
-			}
-		}
-
-		addClickOutsideNav(){
-			window.addEventListener('click', function (e) {
-				// if (this. 
-				// .contains(e.target)) {
-				// 	this.userProfileSidenav.classList.remove("sidenav-open")
-				// } 
-			});
-		}
-
-		removeClickOutsideNav() {
-			window.removeEventListener('click');
-		}
-
-		getReducedName(fullname) {
-			let nameSplited = fullname.split(' ')
-			return `${nameSplited[0]}  ${nameSplited[nameSplited.length - 1]}`
-		}
-
-	}
-
-	const template = document.getElementById('user-profile-template')
-
-	customElements.define(UserProfile.is, UserProfile)
+    customElements.define(UserProfile.is, UserProfile)
 </script>

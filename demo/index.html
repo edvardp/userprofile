@@ -1,6 +1,7 @@
 <!doctype html>
 <html>
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>user-profile Demo</title>
@@ -14,52 +15,53 @@
 
     <!-- Demo styles -->
     <style>
-      /* Page styles */
-      body {
-        font-family: sans-serif;
-        color: #303c46
-      }
+        /* Page styles */
+        body {
+            font-family: sans-serif;
+            color: #303c46;
+        }
 
-      .wrapper {
-        width: 90%;
-        max-width: 38rem;
-        margin: 2rem auto;
-      }
+        .wrapper {
+            width: 90%;
+            max-width: 38rem;
+            margin: 2rem auto;
+        }
 
-      .demo {
-        display: inline-block;
-        width: 100%;
-        margin: 2rem 0;
-      }
+        .demo {
+            display: inline-block;
+            width: 100%;
+            margin: 2rem 0;
+        }
 
-      .demo__title {
-        font-size: 1.4rem;
-        font-weight: 400;
-      }
+        .demo__title {
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
 
-      /* Add element styles here */
+        /* Add element styles here */
     </style>
-  </head>
+</head>
 
-  <body>
+<body>
     <div class="wrapper">
 
-      <div class="demo">
-        <h1 class="demo__title">Basic demo</h1>
-        <demo-snippet>
-          <template>
+        <div class="demo">
+            <h1 class="demo__title">Basic demo</h1>
+            <demo-snippet>
+                <template>
 
-            <!-- Add your demo code here -->
-            <user-profile color="#FFF"></user-profile>
-          </template>
-        </demo-snippet>
-      </div>
+                    <!-- Add your demo code here -->
+                    <user-profile color="#FFF" action="https://jsonplaceholder.typicode.com/todos/1"></user-profile>
+                </template>
+            </demo-snippet>
+        </div>
 
-      <!--
+        <!--
         You can add additional demos here
         Just copy & paste the above block
        -->
 
     </div>
-  </body>
+</body>
+
 </html>
