@@ -23,7 +23,7 @@
     "url": "https://github.com/https://github.com/edvardp/userprofile.git/user-profile/issues"
   },
   "devDependencies": {
-    "browser-sync": "^2.9.0",
+    "browser-sync": "^2.27.10",
     "eslint": "^3.14.1",
     "web-component-tester": "^6.0.0"
   }
